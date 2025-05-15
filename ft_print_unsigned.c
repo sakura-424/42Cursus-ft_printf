@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_print_unsigned.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 00:56:08 by  skatsuya@s       #+#    #+#             */
-/*   Updated: 2025/05/15 16:29:31 by skatsuya         ###   ########.fr       */
+/*   Created: 2025/05/15 18:52:40 by skatsuya          #+#    #+#             */
+/*   Updated: 2025/05/15 19:00:43 by skatsuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+int	ft_print_unsigned(unsigned int n, int fd)
+{
+	int		count;
+	char	c;
 
-# include <stdarg.h>
-# include <string.h>
-# include <unistd.h>
-# include <limits.h>
-
-int	ft_printf(const char *format, ...);
-
-#endif
+	count = 0;
+	if (n >= 10)
+		count += ft_print_unsigned(n / 10, fd);
+	c = '0' + (n % 10);
+	count += write(fd, &c, 1);
+	return (count);
+}

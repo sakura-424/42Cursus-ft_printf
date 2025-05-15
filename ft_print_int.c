@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_print_int.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 00:56:08 by  skatsuya@s       #+#    #+#             */
-/*   Updated: 2025/05/15 16:29:31 by skatsuya         ###   ########.fr       */
+/*   Created: 2025/05/15 16:22:29 by skatsuya          #+#    #+#             */
+/*   Updated: 2025/05/15 17:56:39 by skatsuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdarg.h>
-# include <string.h>
-# include <unistd.h>
-# include <limits.h>
+int	ft_print_int(int n, int fd)
+{
+	int		count;
+	char	c;
 
-int	ft_printf(const char *format, ...);
-
-#endif
+	if (n == -INT_MIN)
+		return (write(fd, "-214783648", 11));
+	if (n < 0)
+	{
+		count += write(fd, "-", 1);
+		n = -n;
+	}
+	if (n >= 10)
+		count += ft_print_int(n / 10, fd);
+	c = '0' + (n % 10);
+	count += ft_putchar_fd(c, fd);
+	return (count);
+}

@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 00:56:08 by  skatsuya@s       #+#    #+#             */
-/*   Updated: 2025/05/15 16:29:31 by skatsuya         ###   ########.fr       */
+/*   Created: 2025/05/15 15:16:21 by skatsuya          #+#    #+#             */
+/*   Updated: 2025/05/15 16:20:39 by skatsuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
+#include "libft.h"
 
-# include <stdarg.h>
-# include <string.h>
-# include <unistd.h>
-# include <limits.h>
+int	ft_print_char(char c, int fd)
+{
+	ft_putchar_fd(c, fd);
+	return (1);
+}
 
-int	ft_printf(const char *format, ...);
+int	ft_print_str(const char *s, int fd)
+{
+	int	i;
 
-#endif
+	i = 0;
+	if (!s)
+		s = "null";
+	while (s[i])
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
+	return (i);
+}

@@ -1,23 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_print_ptr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 00:56:08 by  skatsuya@s       #+#    #+#             */
-/*   Updated: 2025/05/15 16:29:31 by skatsuya         ###   ########.fr       */
+/*   Created: 2025/05/15 15:47:28 by skatsuya          #+#    #+#             */
+/*   Updated: 2025/05/15 16:14:10 by skatsuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include <stdint.h>
 
-# include <stdarg.h>
-# include <string.h>
-# include <unistd.h>
-# include <limits.h>
+static int	ft_putnbr_hex(uintptr_t ptr)
+{
+	const char	hex[] = "0123456789abcdef";
+	int			len;
 
-int	ft_printf(const char *format, ...);
+	len = 0;
+	if (ptr >= 16)
+		len += ft_putnbr_hex(ptr / 16);
+	len += write(1, &hex[ptr % 16], 1);
+	return (len);
+}
 
-#endif
+int	ft_print_ptr(void *ptr)
+{
+	int	count;
+
+	count += write(1, "0x", 2);
+	if (!ptr)
+		count += write(1, "0", 1);
+	else
+		count += ft_putnbr_hex((uintptr_t)ptr);
+	return (count);
+}
