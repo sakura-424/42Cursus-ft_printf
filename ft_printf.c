@@ -14,12 +14,11 @@
 
 int	ft_format(const char *format, va_list args)
 {
-	char	*str;
-	void	*ptr;
 	int		count;
 	int		fd;
 
 	fd = 1;
+	count = 0;
 	if (*format == 'c')
 		count += ft_print_char(va_arg(args, int), fd);
 	else if (*format == 's')
@@ -35,26 +34,37 @@ int	ft_format(const char *format, va_list args)
 	else if (*format == 'X')
 		count += ft_print_hex(va_arg(args, unsigned int), 1, fd);
 	else if (*format == '%')
-		return (ft_putchar('%'));
-	return (0);
+		count += ft_print_char('%', fd);
+	return (count);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	int		i;
 	int		count;
 	va_list	args;
 
 	va_start(args, format);
 	count = 0;
-	i = 0;
-	while (format[i])
-	{
-		if (format[i] == '%' && format[i + 1])
-			count = count + ft_format(&format[++1], args);
-		else
-			count = count + write(1, &format[i], 1);
-		i++;
-	}
+	 while (*format)
+    {
+        if (*format == '%')
+        {
+            format++; // % の次の文字へ
+            if (*format)
+                count += ft_format(format, args);
+        }
+        else
+            count += ft_print_char(*format, 1);
+
+        format++;
+    }
 	va_end(args);
+	return (count);
+}
+
+int main(void)
+{
+	ft_printf("%%%d\n", 5);
+	printf("%%%d\n", 5);
+	return (0);
 }

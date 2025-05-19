@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
+
 int	ft_print_hex(unsigned int n, int upper, int fd)
 {
 	int		count;

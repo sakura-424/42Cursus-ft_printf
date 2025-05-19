@@ -17,7 +17,8 @@ int	ft_print_int(int n, int fd)
 	int		count;
 	char	c;
 
-	if (n == -INT_MIN)
+	count = 0;
+	if (n == INT_MIN)
 		return (write(fd, "-214783648", 11));
 	if (n < 0)
 	{
@@ -27,6 +28,6 @@ int	ft_print_int(int n, int fd)
 	if (n >= 10)
 		count += ft_print_int(n / 10, fd);
 	c = '0' + (n % 10);
-	count += ft_putchar_fd(c, fd);
+	count += ft_print_char(c, fd);
 	return (count);
 }

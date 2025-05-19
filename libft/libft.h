@@ -13,7 +13,7 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <bsd/string.h>
+# include <string.h>
 # include <limits.h>
 # include <stdint.h>
 # include <stdio.h>

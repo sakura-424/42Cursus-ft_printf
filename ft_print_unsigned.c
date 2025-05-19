@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
+
 int	ft_print_unsigned(unsigned int n, int fd)
 {
 	int		count;

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdint.h>
+#include "ft_printf.h"
 
 static int	ft_putnbr_hex(uintptr_t ptr)
 {
@@ -28,10 +29,13 @@ int	ft_print_ptr(void *ptr)
 {
 	int	count;
 
-	count += write(1, "0x", 2);
+	count = 0;
 	if (!ptr)
-		count += write(1, "0", 1);
-	else
-		count += ft_putnbr_hex((uintptr_t)ptr);
+	{
+		count += write(1, "(nil)", 5);
+		return (count);
+	}
+	count += write(1, "0x", 2);
+	count += ft_putnbr_hex((uintptr_t)ptr);
 	return (count);
 }
